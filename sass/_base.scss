@@ -1,0 +1,26 @@
+body{
+  font-size: 18px;
+  width: 1240px;
+  margin: 0 auto;
+  font-family: 'Lato', sans-serif;
+}
+
+$logo: #D04F4F;
+$blue: #3282F7;
+$lightBlue: #85b4fa;
+$darkBlue: #1e4c92;
+$green: #68D9A4;
+$orange: #ED6454;
+$grey: #E7E7E7;
+$darkGrey: #5a5858;
+$white: #ffffff;
+$black: #000000;
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
