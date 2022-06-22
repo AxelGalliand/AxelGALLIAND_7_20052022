@@ -175,6 +175,13 @@ p {
   cursor: pointer;
 }
 
+#ingredientsUp,
+#appliancesUp,
+#ustensilsUp {
+  display: none;
+  cursor: pointer;
+}
+
 .filtersList {
   padding-left: 16px;
   border-bottom-left-radius: 5px;
@@ -287,6 +294,10 @@ p {
   grid-template-columns: repeat(2, 1fr);
   padding: 0 10px 12px 10px;
   height: 120px;
+}
+
+.ingredientName {
+  font-weight: bold;
 }
 
 .recipeIngredients {

@@ -4,7 +4,7 @@ class recipesMaker {
   constructor(recipesData) {
     this.name = recipesData.name;
     this.time = recipesData.time;
-    this.ingredients = recipesData.ingredients
+    this.ingredients = recipesData.ingredients;
     this.description = recipesData.description;
   }
 
@@ -13,13 +13,13 @@ class recipesMaker {
     this.ingredients.forEach((ingredient) => {
 
       if(ingredient.quantity === undefined) {
-        temp += "<li class='displayedIngredients'>"+ ingredient.ingredient +"</li>"
+        temp += "<li class='displayedIngredients'>"+ "<span class='ingredientName'>" + ingredient.ingredient +"</span>"+"</li>"
       } else if(ingredient.unit === undefined) {
-        temp += "<li class='displayedIngredients'>"+ ingredient.ingredient +": "+ ingredient.quantity +"</li>"
+        temp += "<li class='displayedIngredients'>"+ "<span class='ingredientName'>" + ingredient.ingredient +"</span>"+": "+ ingredient.quantity +"</li>"
       } else if(ingredient.unit === "grammes") {
-        temp += "<li class='displayedIngredients'>"+ ingredient.ingredient +": "+ ingredient.quantity +"g"+"</li>" 
+        temp += "<li class='displayedIngredients'>"+ "<span class='ingredientName'>" + ingredient.ingredient +"</span>"+": "+ ingredient.quantity +"g"+"</li>" 
       } else {
-        temp += "<li class='displayedIngredients'>"+ ingredient.ingredient +": "+ ingredient.quantity + ingredient.unit +"</li>";
+        temp += "<li class='displayedIngredients'>"+ "<span class='ingredientName'>" + ingredient.ingredient +"</span>"+": "+ ingredient.quantity + ingredient.unit +"</li>";
       }
           
     })
@@ -57,28 +57,89 @@ recipes.forEach((recipe) => {
 })
 
 
-class filterMaker {
-  constructor(Data) {
-    
-  }
+const ingredientsButton = document.getElementById("ingredients_button");
+const ingredientsInput = document.getElementById("filter_ingredients");
+const ingredientsDown = document.getElementById("ingredientsDown");
+const ingredientsUp = document.getElementById("ingredientsUp");
+const ingredientsList = document.getElementById("ingredientsList");
 
-  filterCliked(Data) {
+function displayIngDown() {
+    ingredientsButton.style.width = "700px";
+    ingredientsList.style.display = "grid";
+    ingredientsDown.style.display = "none";
+    ingredientsUp.style.display = "block";
+    displayAppUp();
+    displayUstUp();
+    ingredientsFilter(recipes);
+}
+ingredientsInput.addEventListener("click", displayIngDown);
+ingredientsDown.addEventListener("click", displayIngDown);
 
-    const filtersLocation = document.querySelectorAll(".filterButtons");
-    const filterChevron = document.querySelectorAll(".chevron");
-
-
-  }
+function displayIngUp() {
+    ingredientsButton.style.width = "170px";
+    ingredientsList.style.display = "none";
+    ingredientsDown.style.display = "block";
+    ingredientsUp.style.display = "none";
 }
 
-class filterIngredients extends filterMaker {
+ingredientsUp.addEventListener("click", displayIngUp);
 
+const appliancesButton = document.getElementById("appliances_button");
+const appliancesInput = document.getElementById("filter_appliances");
+const appliancesDown = document.getElementById("appliancesDown");
+const appliancesUp = document.getElementById("appliancesUp");
+const appliancesList = document.getElementById("appliancesList")
+
+function displayAppDown() {
+    appliancesButton.style.width = "400px";
+    appliancesList.style.display = "grid";
+    appliancesDown.style.display = "none";
+    appliancesUp.style.display = "block";
+    displayIngUp();
+    displayUstUp();
+}
+appliancesInput.addEventListener("click", displayAppDown);
+appliancesDown.addEventListener("click", displayAppDown);
+
+function displayAppUp() {
+    appliancesButton.style.width = "170px";
+    appliancesList.style.display = "none";
+    appliancesDown.style.display = "block";
+    appliancesUp.style.display = "none";
 }
 
-class filterAppliances extends filterMaker{
+appliancesUp.addEventListener("click", displayAppUp);
 
+const ustensilsButton = document.getElementById("ustensils_button");
+const ustensilsInput = document.getElementById("filter_ustensils");
+const ustensilsDown = document.getElementById("ustensilsDown");
+const ustensilsUp = document.getElementById("ustensilsUp");
+const ustensilsList = document.getElementById("ustensilsList");
+
+function displayUstDown() {
+    ustensilsButton.style.width = "500px";
+    ustensilsList.style.display = "grid";
+    ustensilsDown.style.display = "none";
+    ustensilsUp.style.display = "block";
+    displayIngUp();
+    displayAppUp();
 }
+ustensilsInput.addEventListener("click", displayUstDown);
+ustensilsDown.addEventListener("click", displayUstDown);
 
-class filterUstensils extends filterMaker{
-
+function displayUstUp() {
+    ustensilsButton.style.width = "170px";
+    ustensilsList.style.display = "none";
+    ustensilsDown.style.display = "block";
+    ustensilsUp.style.display = "none";
 }
+ustensilsUp.addEventListener("click", displayUstUp);
+
+function ingredientsFilter (dataIngredients){
+  this.ingredients = dataIngredients.ingredients;
+  let ingredientArray = [];
+  this.ingredients.forEach((ingredient) => {
+    const ingredientPush = ingredientArray.push(ingredient.ingredient);
+  })
+  ingredientsList.appendChild(ingredientArray);
+} 
