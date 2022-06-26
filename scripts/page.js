@@ -50,18 +50,57 @@ class recipesMaker {
 
 }
 
+let inputSearchBarre = document.getElementById("searchBar_Input").innerHTML;
+let ingredientArray = [];
+const ingredientsList = document.getElementById("ingredientsList");
 
-recipes.forEach((recipe) => {
-  const newObj = new recipesMaker(recipe);
-  newObj.render();
-})
 
+// faire le premier if ici pour englober l'utilisation de la classe recipeMaker sans filter 
+function conditionAffichage(recipes) {
+  if (inputSearchBarre.length < 3) {
+    recipes.forEach((recipe) => {
+      const newrecipe = new recipesMaker(recipe);
+      newrecipe.render();
+    
+      recipe.ingredients.forEach((elem) => {
+       let ingredientOfingredients = [elem.ingredient];
+       console.log(ingredientArray);
+      ingredientArray.push(ingredientOfingredients);
+      //  const ingredientPush = ingredientArray.push(ingredientOfingredients);
+       ingredientsList.innerHTML = `${ingredientArray}`
+      })
+    })
+  } else {
+    const recipeFilter = recipes.filter((elem) => elem.appliance === inputSearchBarre);
+  }
+  
+}
+conditionAffichage(recipes)
+inputSearchBarre.addEventListener("y", console.log('teste'));
+// recipes.forEach((recipe) => {
+//   const newrecipe = new recipesMaker(recipe);
+//   newrecipe.render();
+
+//   recipe.ingredients.forEach((elem) => {
+//    let ingredientOfingredients = [elem.ingredient];
+//    console.log(ingredientOfingredients);
+//   ingredientArray.push(ingredientOfingredients);
+//   //  const ingredientPush = ingredientArray.push(ingredientOfingredients);
+//    ingredientsList.innerHTML = `${ingredientArray}`
+//   })
+// })
+
+function ingredientsFilter (dataIngredients){
+  dataIngredients.forEach((ingredient) => {
+    console.log(ingredient);
+  })
+}
 
 const ingredientsButton = document.getElementById("ingredients_button");
 const ingredientsInput = document.getElementById("filter_ingredients");
 const ingredientsDown = document.getElementById("ingredientsDown");
 const ingredientsUp = document.getElementById("ingredientsUp");
-const ingredientsList = document.getElementById("ingredientsList");
+// const ingredientsList = document.getElementById("ingredientsList");
 
 function displayIngDown() {
     ingredientsButton.style.width = "700px";
@@ -70,7 +109,22 @@ function displayIngDown() {
     ingredientsUp.style.display = "block";
     displayAppUp();
     displayUstUp();
-    ingredientsFilter(recipes);
+    // ingredientsFilter(recipes);
+// function ingredientsFilter (dataIngredients){
+// //  this.ingredients = dataIngredients.ingredients;
+
+//   let ingredientArray = [];
+//   dataIngredients.ingredients.forEach((ingredient) => {
+//     const ingredientPush = ingredientArray.push(ingredient.ingredient);
+//   })
+//   ingredientsList.appendChild(ingredientArray);
+// } 
+
+  // recipes.ingredients.forEach((ingredient) => {
+  //     const ingredientPush = ingredientArray.push(ingredient.ingredient);
+  //     // ingredientsList.appendChild(ingredientArray);
+  //   })
+
 }
 ingredientsInput.addEventListener("click", displayIngDown);
 ingredientsDown.addEventListener("click", displayIngDown);
@@ -135,11 +189,6 @@ function displayUstUp() {
 }
 ustensilsUp.addEventListener("click", displayUstUp);
 
-function ingredientsFilter (dataIngredients){
-  this.ingredients = dataIngredients.ingredients;
-  let ingredientArray = [];
-  this.ingredients.forEach((ingredient) => {
-    const ingredientPush = ingredientArray.push(ingredient.ingredient);
-  })
-  ingredientsList.appendChild(ingredientArray);
-} 
+
+
+
