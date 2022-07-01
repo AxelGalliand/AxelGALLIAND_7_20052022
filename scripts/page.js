@@ -52,11 +52,11 @@ class recipesMaker {
 
 const searchIcon = document.getElementsByClassName("search_Icon")[0];
 
-let ingredientArray = [];
 const ingredientsList = document.getElementById("ingredientsList");
+const appliancesList = document.getElementById("appliancesList");
+const ustensilsList = document.getElementById("ustensilsList");
 
 
-// faire le premier if ici pour englober l'utilisation de la classe recipeMaker sans filter 
 function conditionAffichage(recipes) {
   let inputSearchBarre = document.getElementById("searchBar_Input").value;
   if (inputSearchBarre.length < 3) {
@@ -64,18 +64,8 @@ function conditionAffichage(recipes) {
     recipes.forEach((recipe) => {
       const newrecipe = new recipesMaker(recipe);
       newrecipe.render();
-    
-      // recipe.ingredients.forEach((elem) => {
-      //  let ingredientOfingredients = elem.ingredient;
-      //  console.log(ingredientArray);
-      // ingredientArray.push(ingredientOfingredients);
-      // //  const ingredientPush = ingredientArray.push(ingredientOfingredients);
-      //  ingredientsList.innerHTML = `${ingredientArray}`
-      // })
     })
 
-    // ingredientArray = generateIng(recipes);
-    // displayIngDown(ingredientArray)
   } else {
     alert("---3")
     // const recipeFilter = recipes.filter((elem) => elem.appliance  === inputSearchBarre); 
@@ -87,13 +77,40 @@ function generateIng(recipeArray) {
   recipeArray.forEach((recipe) => {
     recipe.ingredients.forEach((elem) => {
      let ingredientOfingredients = elem.ingredient;
-     ingArr =+ "<li class='ingredientElem'>" + ingredientOfingredients + "</li>"
-    //  ingArr.push(ingredientOfingredients);
+     ingArr += "<li class='ingredientElem'>" + ingredientOfingredients + "</li>"
     })
   })
+  ingredientsList.innerHTML = `${ingArr}`
   return ingArr
 }
+
+function generateAppli(recipeArray) {
+  let appliArr = "";
+  recipeArray.forEach((recipe) => {
+     let appliances = recipe.appliance;
+     appliArr += "<li class='appliancesElem'>" + appliances + "</li>"
+  })
+  appliancesList.innerHTML = `${appliArr}`
+  return appliArr
+}
+
+function generateUst(recipeArray) {
+  let ustArr = "";
+  recipeArray.forEach((recipe) => {
+    recipe.ustensils.forEach((ustensils) => {
+    //  let ustensils = ustensils;
+     ustArr += "<li class='ingredientElem'>" + ustensils + "</li>"
+    })
+  })
+  console.log(ustArr);
+  ustensilsList.innerHTML = `${ustArr}`
+  return ustArr
+}
+
+
 generateIng(recipes);
+generateAppli(recipes);
+generateUst(recipes);
 
 
 conditionAffichage(recipes);
@@ -113,21 +130,7 @@ function displayIngDown() {
     ingredientsUp.style.display = "block";
     displayAppUp();
     displayUstUp();
-    // ingredientsFilter(recipes);
-// function ingredientsFilter (dataIngredients){
-// //  this.ingredients = dataIngredients.ingredients;
 
-//   let ingredientArray = [];
-//   dataIngredients.ingredients.forEach((ingredient) => {
-//     const ingredientPush = ingredientArray.push(ingredient.ingredient);
-//   })
-//   ingredientsList.appendChild(ingredientArray);
-// } 
-
-  // recipes.ingredients.forEach((ingredient) => {
-  //     const ingredientPush = ingredientArray.push(ingredient.ingredient);
-  //     // ingredientsList.appendChild(ingredientArray);
-  //   })
 
 }
 ingredientsInput.addEventListener("click", displayIngDown);
@@ -146,7 +149,6 @@ const appliancesButton = document.getElementById("appliances_button");
 const appliancesInput = document.getElementById("filter_appliances");
 const appliancesDown = document.getElementById("appliancesDown");
 const appliancesUp = document.getElementById("appliancesUp");
-const appliancesList = document.getElementById("appliancesList")
 
 function displayAppDown() {
     appliancesButton.style.width = "400px";
@@ -172,7 +174,7 @@ const ustensilsButton = document.getElementById("ustensils_button");
 const ustensilsInput = document.getElementById("filter_ustensils");
 const ustensilsDown = document.getElementById("ustensilsDown");
 const ustensilsUp = document.getElementById("ustensilsUp");
-const ustensilsList = document.getElementById("ustensilsList");
+
 
 function displayUstDown() {
     ustensilsButton.style.width = "500px";
