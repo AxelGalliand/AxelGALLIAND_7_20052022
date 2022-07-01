@@ -50,51 +50,55 @@ class recipesMaker {
 
 }
 
-let inputSearchBarre = document.getElementById("searchBar_Input").innerHTML;
+const searchIcon = document.getElementsByClassName("search_Icon")[0];
+
 let ingredientArray = [];
 const ingredientsList = document.getElementById("ingredientsList");
 
 
 // faire le premier if ici pour englober l'utilisation de la classe recipeMaker sans filter 
 function conditionAffichage(recipes) {
+  let inputSearchBarre = document.getElementById("searchBar_Input").value;
   if (inputSearchBarre.length < 3) {
+    alert("+++3")
     recipes.forEach((recipe) => {
       const newrecipe = new recipesMaker(recipe);
       newrecipe.render();
     
-      recipe.ingredients.forEach((elem) => {
-       let ingredientOfingredients = [elem.ingredient];
-       console.log(ingredientArray);
-      ingredientArray.push(ingredientOfingredients);
-      //  const ingredientPush = ingredientArray.push(ingredientOfingredients);
-       ingredientsList.innerHTML = `${ingredientArray}`
-      })
+      // recipe.ingredients.forEach((elem) => {
+      //  let ingredientOfingredients = elem.ingredient;
+      //  console.log(ingredientArray);
+      // ingredientArray.push(ingredientOfingredients);
+      // //  const ingredientPush = ingredientArray.push(ingredientOfingredients);
+      //  ingredientsList.innerHTML = `${ingredientArray}`
+      // })
     })
+
+    // ingredientArray = generateIng(recipes);
+    // displayIngDown(ingredientArray)
   } else {
-    const recipeFilter = recipes.filter((elem) => elem.appliance === inputSearchBarre);
+    alert("---3")
+    // const recipeFilter = recipes.filter((elem) => elem.appliance  === inputSearchBarre); 
   }
-  
 }
-conditionAffichage(recipes)
-inputSearchBarre.addEventListener("y", console.log('teste'));
-// recipes.forEach((recipe) => {
-//   const newrecipe = new recipesMaker(recipe);
-//   newrecipe.render();
 
-//   recipe.ingredients.forEach((elem) => {
-//    let ingredientOfingredients = [elem.ingredient];
-//    console.log(ingredientOfingredients);
-//   ingredientArray.push(ingredientOfingredients);
-//   //  const ingredientPush = ingredientArray.push(ingredientOfingredients);
-//    ingredientsList.innerHTML = `${ingredientArray}`
-//   })
-// })
-
-function ingredientsFilter (dataIngredients){
-  dataIngredients.forEach((ingredient) => {
-    console.log(ingredient);
+function generateIng(recipeArray) {
+  let ingArr = "";
+  recipeArray.forEach((recipe) => {
+    recipe.ingredients.forEach((elem) => {
+     let ingredientOfingredients = elem.ingredient;
+     ingArr =+ "<li class='ingredientElem'>" + ingredientOfingredients + "</li>"
+    //  ingArr.push(ingredientOfingredients);
+    })
   })
+  return ingArr
 }
+generateIng(recipes);
+
+
+conditionAffichage(recipes);
+searchIcon.addEventListener("click",() => conditionAffichage(recipes));
+
 
 const ingredientsButton = document.getElementById("ingredients_button");
 const ingredientsInput = document.getElementById("filter_ingredients");
@@ -188,7 +192,4 @@ function displayUstUp() {
     ustensilsUp.style.display = "none";
 }
 ustensilsUp.addEventListener("click", displayUstUp);
-
-
-
 
