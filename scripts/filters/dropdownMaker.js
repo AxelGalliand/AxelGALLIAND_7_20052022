@@ -13,8 +13,6 @@ function generateIng(recipeArray) {
      ingList.push(ingredientOfingredients);
     })
   })
-
-  console.log([... new Set(ingList)])
   return [... new Set(ingList)].sort()
 }
 
