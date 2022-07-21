@@ -1,40 +1,106 @@
 import { recipes } from "../Data/recipes.js";
 import { recipesMaker } from"./class/recipesMaker.js";
-import { } from"./filters/dropdownMaker.js";
+import { generateIng, displayIng, generateAppli, displayAppli, generateUst, displayUst, ingredientsInput, ingredientsDown, ingredientsUp,displayIngDown, displayIngUp, appliancesInput, appliancesDown, appliancesUp,  displayAppDown, displayAppUp, ustensilsInput, ustensilsDown, ustensilsUp, displayUstDown, displayUstUp } from"./filters/dropdownMaker.js";
 
 
 const recipesLocation = document.querySelector("#recipesZone");
-
+const errorTextZone = document.querySelector("#errorTextZone") ;
 const inputSearchBarre = document.getElementById("searchBar_Input")
 
-function ingInput (elem){
-  const input = inputSearchBarre.value.toLowerCase();
-  elem.ingredient.includes(input)
+// function ingInput (elem){
+//   const input = inputSearchBarre.value.toLowerCase();
+//   elem.ingredient.includes(input)
   
-}
+// }
 
-inputSearchBarre.addEventListener('keyup', function () {
-  const input = inputSearchBarre.value.toLowerCase();
+function recipesfirst (){
+  recipes.forEach((recipe) => {
+const newrecipe = new recipesMaker(recipe);
+      newrecipe.render();
+}) }
+
+
+inputSearchBarre.addEventListener('keyup', function (e) {
+  const input = e.target.value.toLowerCase();
+  const recipeFilter = recipes.filter((recipe) => recipe.name.toLowerCase().includes(input) || recipe.description.toLowerCase().includes(input) ||
+  recipe.ingredients.some((ingObj) => {
+    return ingObj.ingredient.toLowerCase().includes(input)
+  }) );
 
   if (input.length < 3) {
-    // alert("+++3")
     recipesLocation.innerHTML = ``;
+    errorTextZone.innerHTML = ``;
     recipes.forEach((recipe) => {
       const newrecipe = new recipesMaker(recipe);
       newrecipe.render();
+      const ingList = generateIng(recipes);
+      displayIng(ingList);
+      const appliList = generateAppli(recipes);
+      displayAppli(appliList);
+      const ustList = generateUst(recipes);
+      displayUst(ustList);
     })
    
 
-  } else {
-    // alert("---3")
+  } 
+  else if (recipeFilter.length == 0) {
     recipesLocation.innerHTML = ``;
-    const recipeFilter = recipes.filter((recipe) => recipe.name.toLowerCase().includes(input) || recipe.description.toLowerCase().includes(input) ||
-    recipe.ingredients.some(ingInput) ); 
-    console.log(recipeFilter);
+    errorTextZone.innerHTML = ``;
+    errorTextZone.style.display = "flex"
+    errorTextZone.style.justifyContent = "center"
+    const span = document.createElement('span')
+    span.className = "errorText"
+    span.textContent =  `Aucune recette ne correspond à votre critère… vous pouvez
+    chercher « tarte aux pommes », « poisson », etc`
+    span.style.padding = "8em";
+    span.style.fontSize = "150%"
+
+    errorTextZone.appendChild(span);
+  }
+  else {
+    recipesLocation.innerHTML = ``;
+    errorTextZone.innerHTML = ``;
+    // console.log(recipeFilter);
     recipeFilter.forEach((recipe) => {
       const newrecipe = new recipesMaker(recipe);
     newrecipe.render();
     })
+
+    const ingList = generateIng(recipeFilter);
+    displayIng(ingList);
+    const appliList = generateAppli(recipeFilter);
+    displayAppli(appliList);
+    const ustList = generateUst(recipeFilter);
+    displayUst(ustList);
+
   }
+
+ 
 })
 
+
+
+ingredientsInput.addEventListener("click", displayIngDown);
+ingredientsDown.addEventListener("click", displayIngDown);
+
+ingredientsUp.addEventListener("click", displayIngUp);
+
+appliancesInput.addEventListener("click", displayAppDown);
+appliancesDown.addEventListener("click", displayAppDown);
+
+appliancesUp.addEventListener("click", displayAppUp);
+
+ustensilsInput.addEventListener("click", displayUstDown);
+ustensilsDown.addEventListener("click", displayUstDown);
+
+ustensilsUp.addEventListener("click", displayUstUp);
+
+
+const ingList = generateIng(recipes);
+displayIng(ingList);
+const appliList = generateAppli(recipes);
+displayAppli(appliList);
+const ustList = generateUst(recipes);
+displayUst(ustList);
+
+recipesfirst ();

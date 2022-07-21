@@ -1,10 +1,10 @@
-import { recipes } from "../../Data/recipes.js";
+import {tagMaker__ing } from "../class/tagMaker.js" ;
 
-const ingredientsList = document.getElementById("ingredientsList");
-const appliancesList = document.getElementById("appliancesList");
-const ustensilsList = document.getElementById("ustensilsList");
+export const ingredientsList = document.getElementById("ingredientsList");
+export const appliancesList = document.getElementById("appliancesList");
+export const ustensilsList = document.getElementById("ustensilsList");
 
-function generateIng(recipeArray) {
+export function generateIng(recipeArray) {
   let ingList = [];
 
   recipeArray.forEach((recipe) => {
@@ -16,15 +16,22 @@ function generateIng(recipeArray) {
   return [... new Set(ingList)].sort()
 }
 
-function displayIng(ingArr) {
+export function displayIng(ingArr) {
   let ingString = "";
   ingArr.forEach((elem) => {
      ingString += "<li class='ingredientElem'>" + elem + "</li>"
   })
     ingredientsList.innerHTML = `${ingString}`
 }
+    /////////////////////////////////////////////
 
-function generateAppli(recipeArray) {
+////////////////  base du lisener pour les tag  ////////////////////
+    const ingElemLocal = document.querySelectorAll(".ingredientElem")
+    // .addEventListener('click', alert("test"))
+
+
+
+    export function generateAppli(recipeArray) {
   let appliList = [];
   recipeArray.forEach((recipe) => {
     let appliances = recipe.appliance;
@@ -33,15 +40,15 @@ function generateAppli(recipeArray) {
   return [... new Set(appliList)].sort()
 }
 
-function displayAppli(appliArr) {
+export function displayAppli(appliArr) {
   let appliString ="";
   appliArr.forEach ((elem) => {
-    appliString += "<li class='ingredientElem'>" + elem + "</li>"
+    appliString += "<li class='applianceElem'>" + elem + "</li>"
  })
  appliancesList.innerHTML = `${appliString}`
 }
 
-function generateUst(recipeArray) {
+export function generateUst(recipeArray) {
   let ustList = [];
   recipeArray.forEach((recipe) => {
     recipe.ustensils.forEach((ustensils) => {
@@ -51,28 +58,23 @@ function generateUst(recipeArray) {
   return [... new Set(ustList)].sort();
 }
 
-function displayUst(ustArr) {
+export function displayUst(ustArr) {
   let ustString ="";
   ustArr.forEach ((elem) => {
-  ustString += "<li class='ingredientElem'>" + elem + "</li>"
+  ustString += "<li class='ustensilstElem'>" + elem + "</li>"
 })
   ustensilsList.innerHTML = `${ustString}`
 }
 
-const ingList = generateIng(recipes);
-displayIng(ingList);
-const appliList = generateAppli(recipes);
-displayAppli(appliList);
-const ustList = generateUst(recipes);
-displayUst(ustList);
 
 
-const ingredientsButton = document.getElementById("ingredients_button");
-const ingredientsInput = document.getElementById("filter_ingredients");
-const ingredientsDown = document.getElementById("ingredientsDown");
-const ingredientsUp = document.getElementById("ingredientsUp");
 
-function displayIngDown() {
+export const ingredientsButton = document.getElementById("ingredients_button");
+export const ingredientsInput = document.getElementById("filter_ingredients");
+export const ingredientsDown = document.getElementById("ingredientsDown");
+export const ingredientsUp = document.getElementById("ingredientsUp");
+
+export function displayIngDown() {
     ingredientsButton.style.width = "700px";
     ingredientsList.style.display = "grid";
     ingredientsDown.style.display = "none";
@@ -80,24 +82,23 @@ function displayIngDown() {
     displayAppUp();
     displayUstUp();
 }
-ingredientsInput.addEventListener("click", displayIngDown);
-ingredientsDown.addEventListener("click", displayIngDown);
 
-function displayIngUp() {
+
+export function displayIngUp() {
     ingredientsButton.style.width = "170px";
     ingredientsList.style.display = "none";
     ingredientsDown.style.display = "block";
     ingredientsUp.style.display = "none";
 }
 
-ingredientsUp.addEventListener("click", displayIngUp);
 
-const appliancesButton = document.getElementById("appliances_button");
-const appliancesInput = document.getElementById("filter_appliances");
-const appliancesDown = document.getElementById("appliancesDown");
-const appliancesUp = document.getElementById("appliancesUp");
 
-function displayAppDown() {
+export const appliancesButton = document.getElementById("appliances_button");
+export const appliancesInput = document.getElementById("filter_appliances");
+export const appliancesDown = document.getElementById("appliancesDown");
+export const appliancesUp = document.getElementById("appliancesUp");
+
+export function displayAppDown() {
     appliancesButton.style.width = "400px";
     appliancesList.style.display = "grid";
     appliancesDown.style.display = "none";
@@ -105,25 +106,24 @@ function displayAppDown() {
     displayIngUp();
     displayUstUp();
 }
-appliancesInput.addEventListener("click", displayAppDown);
-appliancesDown.addEventListener("click", displayAppDown);
 
-function displayAppUp() {
+
+export function displayAppUp() {
     appliancesButton.style.width = "170px";
     appliancesList.style.display = "none";
     appliancesDown.style.display = "block";
     appliancesUp.style.display = "none";
 }
 
-appliancesUp.addEventListener("click", displayAppUp);
-
-const ustensilsButton = document.getElementById("ustensils_button");
-const ustensilsInput = document.getElementById("filter_ustensils");
-const ustensilsDown = document.getElementById("ustensilsDown");
-const ustensilsUp = document.getElementById("ustensilsUp");
 
 
-function displayUstDown() {
+export const ustensilsButton = document.getElementById("ustensils_button");
+export const ustensilsInput = document.getElementById("filter_ustensils");
+export const ustensilsDown = document.getElementById("ustensilsDown");
+export const ustensilsUp = document.getElementById("ustensilsUp");
+
+
+export function displayUstDown() {
     ustensilsButton.style.width = "500px";
     ustensilsList.style.display = "grid";
     ustensilsDown.style.display = "none";
@@ -131,13 +131,10 @@ function displayUstDown() {
     displayIngUp();
     displayAppUp();
 }
-ustensilsInput.addEventListener("click", displayUstDown);
-ustensilsDown.addEventListener("click", displayUstDown);
 
-function displayUstUp() {
+export function displayUstUp() {
     ustensilsButton.style.width = "170px";
     ustensilsList.style.display = "none";
     ustensilsDown.style.display = "block";
     ustensilsUp.style.display = "none";
 }
-ustensilsUp.addEventListener("click", displayUstUp);

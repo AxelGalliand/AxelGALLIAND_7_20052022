@@ -17,10 +17,16 @@
       <section id="researchZone">
           <div id="searchBar">
             <input type="text" id="searchBar_Input" placeholder="Rechercher une recette">
+            <i class="fa-solid fa-0"></i>
             <i class="search_Icon fas fa-search"></i>
           </div>
           <div>
-            <ul id="tagsZone"></ul>
+            <ul id="tagsZone"> 
+              <li class="ingredient">
+               <span>${this.name}</span>
+               <img src="./assets/circlecross.svg" class="circularCross" id="close_${this.name}" type="icon"></img>
+              </li>
+            </ul>
           </div>
           <div id="filterZone">
             <div class="filterButtons" id="ingredients_button">
@@ -43,52 +49,8 @@
             </div>                
           </div>
       </section>
+      <section id="errorTextZone"></section>
       <section id="recipesZone">
-
-        <!-- <article>
-          <img src="assets/img.png">
-          <div class="recipeHeader">
-            <h2>Limonade de Coco</h2>
-            <div class="recipeTimer">
-              <i class="fa-light fa-clock-five"></i>
-              <p>10</p>
-            </div>
-          </div>
-          <div class="recipeContent">
-            <div class="recipeIngredients">
-              <div class="recipeIngredientsLocation">
-                <p class="displayedIngredients">Lait de coco: 400ml</p>
-                <p class="displayedIngredients">Jus de citron: 2</p>
-                <p class="displayedIngredients">Crème de coco: 2cuillères à soupe</p>
-                <p class="displayedIngredients">Sucre: 30g</p>
-                <p class="displayedIngredients">Glaçons</p>
-              </div>  
-            </div>
-            <p class="recipeDescription">Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir la consistence désirée</p>
-          </div>
-        </article>
-
-        <article>
-          <img src="assets/img.png">
-          <div class="recipeHeader">
-            <h2>Poisson Cru à la tahitienne</h2>
-            <div class="recipeTimer">
-              <i class="fa-light fa-clock-five"></i>
-              <p>60</p>
-            </div>
-          </div>
-          <div class="recipeContent">
-            <div class="recipeIngredients">
-              <p class="displayedIngredients">Thon Rouge (ou blanc): 200g</p>
-              <p class="displayedIngredients">Concombre: 1</p>
-              <p class="displayedIngredients">Tomate: 2</p>
-              <p class="displayedIngredients">Carotte: 1</p>
-              <p class="displayedIngredients">Citron Vert: 5</p>
-              <p class="displayedIngredients">Lait de Coco: 100ml</p>
-            </div>
-            <p class="recipeDescription">Découper le thon en dés, mettre dans un plat et recouvrir de jus de citron vert (mieux vaut prendre un plat large et peu profond). Laisser reposer au réfrigérateur au moins 2 heures. (Si possible faites-le le soir pour le lendemain. Après avoir laissé mariner le poisson, coupez le concombre en fines rondelles sans la peau et les tomates en prenant soin de retirer les pépins. Rayer la carotte. Ajouter les légumes au poissons avec le citron cette fois ci dans un Saladier. Ajouter le lait de coco. Pour ajouter un peu plus de saveur vous pouver ajouter 1 à 2 cuillères à soupe de Crème de coco</p>
-          </div>
-        </article> -->
 
       </section>
     </main>

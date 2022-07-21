@@ -82,12 +82,13 @@ p {
 #tagsZone {
   padding: 0;
   display: flex;
-  justify-content: flex-start;
   font-size: 0.9rem;
   font-weight: 700;
 }
 
 #tagsZone li {
+  display: flex;
+  justify-content: space-around;
   list-style: none;
   color: #ffffff;
   border-radius: 5px;
@@ -107,9 +108,9 @@ p {
   background-color: #ED6454;
 }
 
-.fa-circle-xmark {
-  margin-left: 20px;
-  font-size: 1.2rem;
+.circularCross {
+  cursor: pointer;
+  margin-left: 8px;
 }
 
 #filterZone {
