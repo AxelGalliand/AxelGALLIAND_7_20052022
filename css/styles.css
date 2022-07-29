@@ -92,7 +92,7 @@ p {
   list-style: none;
   color: #ffffff;
   border-radius: 5px;
-  padding: 10px 20px;
+  padding: 10px 15px;
   margin-right: 10px;
 }
 
@@ -232,6 +232,12 @@ p {
   background-color: #ED6454;
   display: none;
   grid-template-columns: repeat(2, 1fr);
+}
+
+#ingredientsList li,
+#appliancesList li,
+#ustensilsList li {
+  cursor: pointer;
 }
 
 .ingredientsLi,

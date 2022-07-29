@@ -1,7 +1,7 @@
 import { recipes } from "../Data/recipes.js";
 import { recipesMaker } from"./class/recipesMaker.js";
 import { generateIng, displayIng, generateAppli, displayAppli, generateUst, displayUst, ingredientsInput, ingredientsDown, ingredientsUp,displayIngDown, displayIngUp, appliancesInput, appliancesDown, appliancesUp,  displayAppDown, displayAppUp, ustensilsInput, ustensilsDown, ustensilsUp, displayUstDown, displayUstUp } from"./filters/dropdownMaker.js";
-
+import { tagMaker__ing } from "./class/tagMaker.js";
 
 const recipesLocation = document.querySelector("#recipesZone");
 const errorTextZone = document.querySelector("#errorTextZone") ;
@@ -33,14 +33,27 @@ inputSearchBarre.addEventListener('keyup', function (e) {
     recipes.forEach((recipe) => {
       const newrecipe = new recipesMaker(recipe);
       newrecipe.render();
-      const ingList = generateIng(recipes);
-      displayIng(ingList);
-      const appliList = generateAppli(recipes);
-      displayAppli(appliList);
-      const ustList = generateUst(recipes);
-      displayUst(ustList);
+      
     })
-   
+    const ingList = generateIng(recipes);
+    displayIng(ingList);
+    const appliList = generateAppli(recipes);
+    displayAppli(appliList);
+    const ustList = generateUst(recipes);
+    displayUst(ustList);
+    const ingDOMList = [...document.querySelectorAll(".ingredientElem")];
+    ingDOMList.forEach((elem) => {
+      elem.addEventListener("click", function(){
+        const elemName = elem.textContent.slice(0);
+        tagMaker__ing(elemName);
+        console.log(elemName)
+        const tagCrossDOM = [... document.querySelectorAll(".circularCross")];
+        tagCrossDOM.forEach((e) => {
+          e.addEventListener("click", function(){
+            e.parentElement.remove()
+          })
+        })
+      })})
 
   } 
   else if (recipeFilter.length == 0) {
@@ -73,12 +86,23 @@ inputSearchBarre.addEventListener('keyup', function (e) {
     const ustList = generateUst(recipeFilter);
     displayUst(ustList);
 
+    const ingDOMList = [...document.querySelectorAll(".ingredientElem")];
+    ingDOMList.forEach((elem) => {
+      elem.addEventListener("click", function(){
+        const elemName = elem.textContent.slice(0);
+        tagMaker__ing(elemName);
+        console.log(elemName)
+        const tagCrossDOM = [... document.querySelectorAll(".circularCross")];
+        tagCrossDOM.forEach((e) => {
+          e.addEventListener("click", function(){
+            e.parentElement.remove()
+          })
+        })
+      })})
   }
 
  
 })
-
-
 
 ingredientsInput.addEventListener("click", displayIngDown);
 ingredientsDown.addEventListener("click", displayIngDown);
@@ -97,6 +121,7 @@ ustensilsUp.addEventListener("click", displayUstUp);
 
 
 const ingList = generateIng(recipes);
+
 displayIng(ingList);
 const appliList = generateAppli(recipes);
 displayAppli(appliList);
@@ -104,3 +129,29 @@ const ustList = generateUst(recipes);
 displayUst(ustList);
 
 recipesfirst ();
+
+
+// const ingElemEvent = document.querySelector(".h1teste");
+
+// let ingElemEventArr = [];
+// ingList.forEach((elem) => {
+//   console.log(elem);
+//   const ingElemEvent = document.querySelector(".ingredientElem");
+//   ingElemEvent.addEventListener("click", function(){
+//   ingElemEventArr.push(elem)
+//   console.log(ingElemEventArr)
+//   })})
+
+const ingDOMList = [...document.querySelectorAll(".ingredientElem")];
+ingDOMList.forEach((elem) => {
+  elem.addEventListener("click", function(){
+    const elemName = elem.textContent.slice(0);
+    tagMaker__ing(elemName);
+    console.log(elemName)
+    const tagCrossDOM = [... document.querySelectorAll(".circularCross")];
+    tagCrossDOM.forEach((e) => {
+      e.addEventListener("click", function(){
+        e.parentElement.remove()
+      })
+    })
+  })})

@@ -1,5 +1,5 @@
 
-  export function tagMaker__ing() {
+  export function tagMaker__ing(elem) {
 
 
     const tagLocation = document.querySelector("#tagsZone");
@@ -8,16 +8,17 @@
     li.className = "ingredient"
 
     const span = document.createElement("span")
-    span.textContent = "this.name"
+    span.className = "spanObj"
+    span.textContent = `${elem}`
 
     const img = document.createElement("img")
     img.className = "circularCross"
     img.id = "close_ingredient"
     img.src ="./assets/circlecross.svg"
-    img.addEventListener('click',() => {
-      img.parentElement.remove()
-      // e.target.parentElement.remove()
-    })
+    // img.addEventListener('click',() => {
+    //   img.parentElement.remove()
+    //   // e.target.parentElement.remove()
+    // })
 
     li.appendChild(span)
     li.appendChild(img)

@@ -65,7 +65,7 @@ p {
   list-style: none;
   color:$white;
   border-radius: 5px;
-  padding: 10px 20px;
+  padding: 10px 15px;
   margin-right: 10px;
 
 }
@@ -207,6 +207,12 @@ p {
   background-color: $orange;
   display: none;
   grid-template-columns: repeat(2, 1fr);
+}
+
+#ingredientsList li,
+#appliancesList li,
+#ustensilsList li{
+  cursor: pointer;
 }
 
 .ingredientsLi,
