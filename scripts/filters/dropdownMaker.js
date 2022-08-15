@@ -1,11 +1,30 @@
-import {tagMaker__ing } from "../class/tagMaker.js" ;
-
 export const ingredientsList = document.getElementById("ingredientsList");
 export const appliancesList = document.getElementById("appliancesList");
 export const ustensilsList = document.getElementById("ustensilsList");
 
-export function generateIng(recipeArray) {
-  let ingList = [];
+
+// export function generateIng(recipeArray) {
+//   const ingInput = document.getElementById("filter_ingredients");
+//   ingInput.addEventListener('keyup', function generateInginput(e) {
+//     const input = e.target.value.toLowerCase();
+
+//     if (input.length < 3) {
+//       let ingList = [];
+
+//       recipeArray.forEach((recipe) => {
+//         recipe.ingredients.forEach((elem) => {
+//          let ingredientOfingredients = elem.ingredient;
+//          ingList.push(ingredientOfingredients);
+//         })
+//       })
+//       return [... new Set(ingList)].sort()
+//     } else {
+//       console.log ("teste")
+//     }
+//   })
+// }
+
+export function generateIng(recipeArray) {let ingList = [];
 
   recipeArray.forEach((recipe) => {
     recipe.ingredients.forEach((elem) => {
@@ -13,23 +32,15 @@ export function generateIng(recipeArray) {
      ingList.push(ingredientOfingredients);
     })
   })
-  return [... new Set(ingList)].sort()
-}
+  return [... new Set(ingList)].sort()}
 
 export function displayIng(ingArr) {
   let ingString = "";
   ingArr.forEach((elem) => {
-     ingString += "<li class='ingredientElem'>" + elem + "</li>"
+     ingString += "<li class='dropdownElem' id='ingredientElem'>" + elem + "</li>"
   })
     ingredientsList.innerHTML = `${ingString}`
 }
-    /////////////////////////////////////////////
-
-////////////////  base du lisener pour les tag  ////////////////////
-    const ingElemLocal = document.querySelectorAll(".ingredientElem")
-    // .addEventListener('click', alert("test"))
-
-
 
     export function generateAppli(recipeArray) {
   let appliList = [];
@@ -43,7 +54,7 @@ export function displayIng(ingArr) {
 export function displayAppli(appliArr) {
   let appliString ="";
   appliArr.forEach ((elem) => {
-    appliString += "<li class='applianceElem'>" + elem + "</li>"
+    appliString += "<li class='dropdownElem' id='applianceElem'>" + elem + "</li>"
  })
  appliancesList.innerHTML = `${appliString}`
 }
@@ -61,7 +72,7 @@ export function generateUst(recipeArray) {
 export function displayUst(ustArr) {
   let ustString ="";
   ustArr.forEach ((elem) => {
-  ustString += "<li class='ustensilstElem'>" + elem + "</li>"
+  ustString += "<li class='dropdownElem' id='ustensilElem'>" + elem + "</li>"
 })
   ustensilsList.innerHTML = `${ustString}`
 }

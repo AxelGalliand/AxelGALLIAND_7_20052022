@@ -1,15 +1,15 @@
 
-  export function tagMaker__ing(elem) {
+  export function tagMaker__Obj(name,idElem) {
 
 
     const tagLocation = document.querySelector("#tagsZone");
 
     const li = document.createElement("li")
-    li.className = "ingredient"
+    li.id = `${idElem}`
 
     const span = document.createElement("span")
     span.className = "spanObj"
-    span.textContent = `${elem}`
+    span.textContent = `${name}`
 
     const img = document.createElement("img")
     img.className = "circularCross"
