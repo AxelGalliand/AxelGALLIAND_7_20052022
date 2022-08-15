@@ -342,8 +342,8 @@ const elemDOMList = [...document.querySelectorAll(".dropdownElem")];
       }
 
        tagCrossDOM.forEach((e) => {
-        e.removeEventListener("click",removTag)
-        e.addEventListener("click",removTag )
+        e.removeEventListener("click",() => removTag(e) )
+        e.addEventListener("click",() => removTag(e) )
        })
       })})
 
