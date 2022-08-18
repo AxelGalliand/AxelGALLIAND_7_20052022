@@ -24,7 +24,8 @@ export const ustensilsList = document.getElementById("ustensilsList");
 //   })
 // }
 
-export function generateIng(recipeArray) {let ingList = [];
+export function generateIng(recipeArray) {
+  let ingList = [];
 
   recipeArray.forEach((recipe) => {
     recipe.ingredients.forEach((elem) => {

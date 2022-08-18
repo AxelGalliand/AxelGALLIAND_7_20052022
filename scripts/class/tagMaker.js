@@ -13,7 +13,7 @@
 
     const img = document.createElement("img")
     img.className = "circularCross"
-    img.id = "close_ingredient"
+    // img.id = "close_ingredient"
     img.src ="./assets/circlecross.svg"
     // img.addEventListener('click',() => {
     //   img.parentElement.remove()

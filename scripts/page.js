@@ -7,6 +7,7 @@ const recipesLocation = document.querySelector("#recipesZone");
 const errorTextZone = document.querySelector("#errorTextZone") ;
 const inputSearchBar = document.getElementById("searchBar_Input")
 
+let elemliste = [];
 
 function recipesfirst (){
   recipes.forEach((recipe) => {
@@ -263,22 +264,22 @@ recipesfirst ();
 const elemDOMList = [...document.querySelectorAll(".dropdownElem")];
    elemDOMList.forEach((elem) => {
       elem.addEventListener("click", function createTag (e){
-      recipesLocation.innerHTML = ``;
-      errorTextZone.innerHTML = ``;
-      const elemName = e.target.textContent.slice(0);
-      const elemId = e.target.id; 
-      tagMaker__Obj(elemName,elemId);
-      console.log(elemId);
-      console.log(elemName);
+        recipesLocation.innerHTML = ``;
+        errorTextZone.innerHTML = ``;
+        const elemName = e.target.textContent.slice(0);
+        const elemId = e.target.id; 
+        tagMaker__Obj(elemName,elemId);
+        console.log(elemId);
+        console.log(elemName);
 
-      const tagsZoneDOM = document.querySelectorAll(".spanObj");
-      function filterRecipesByTag(recipeArr, tagObj) {
-        return recipeArr.filter((recipe) => recipe.appliance.toLowerCase() === tagObj.textContent.toLowerCase() || recipe.ustensils.some((elem) => { return elem.toLowerCase() === tagObj.textContent.toLowerCase()}) || recipe.ingredients.some((ingObj) => {
-          return ingObj.ingredient.toLowerCase() === tagObj.textContent.toLowerCase()
-        }) );
-      }
+        const tagsZoneDOM = document.querySelectorAll(".spanObj");
+        function filterRecipesByTag(recipeArr, tagObj) {
+          return recipeArr.filter((recipe) => recipe.appliance.toLowerCase() === tagObj.textContent.toLowerCase() || recipe.ustensils.some((elem) => { return elem.toLowerCase() === tagObj.textContent.toLowerCase()}) || recipe.ingredients.some((ingObj) => {
+            return ingObj.ingredient.toLowerCase() === tagObj.textContent.toLowerCase()
+          }) );
+        }
 
-      let filteredByTag = [...recipes];
+        let filteredByTag = [...recipes];
         tagsZoneDOM.forEach((tagDom) => {
           filteredByTag =  filterRecipesByTag(filteredByTag, tagDom)
         });
@@ -298,66 +299,58 @@ const elemDOMList = [...document.querySelectorAll(".dropdownElem")];
         ///////////////////
         const elemDOMList = [...document.querySelectorAll(".dropdownElem")];
         elemDOMList.forEach((elem) => {
-          console.log(elem)
           elem.addEventListener("click", createTag)})
         //////////////////
         
 
-       const tagCrossDOM = [... document.querySelectorAll(".circularCross")];
+        const tagCrossDOM = [... document.querySelectorAll(".circularCross")];
 
-       function removTag(e){
-        e.parentElement.remove();
-        recipesLocation.innerHTML = ``;
-        const tagsZoneDOM = document.querySelectorAll(".spanObj");
-        function filterRecipesByTag(recipeArr, tagObj) {
-          return recipeArr.filter((recipe) => recipe.appliance.toLowerCase() === tagObj.textContent.toLowerCase() || recipe.ustensils.some((elem) => { return elem.toLowerCase() === tagObj.textContent.toLowerCase()}) || recipe.ingredients.some((ingObj) => {
-            return ingObj.ingredient.toLowerCase() === tagObj.textContent.toLowerCase()
-          }) );
-        }
+        function removTag(tag){
+          tag.parentElement.remove();
+          recipesLocation.innerHTML = ``;
+          const tagsZoneDOM = document.querySelectorAll(".spanObj");
+          function filterRecipesByTag(recipeArr, tagObj) {
+            return recipeArr.filter((recipe) => recipe.appliance.toLowerCase() === tagObj.textContent.toLowerCase() || recipe.ustensils.some((elem) => { return elem.toLowerCase() === tagObj.textContent.toLowerCase()}) || recipe.ingredients.some((ingObj) => {
+              return ingObj.ingredient.toLowerCase() === tagObj.textContent.toLowerCase()
+            }));
+          }
 
-     let filteredByTag = [...recipes];
-      tagsZoneDOM.forEach((tagDom) => {
-        filteredByTag =  filterRecipesByTag(filteredByTag, tagDom)
-      });
-      console.log(filteredByTag)
-      filteredByTag.forEach((recipe)=> {
-        const newrecipe = new recipesMaker(recipe);
-        newrecipe.render();
+          let filteredByTag = [...recipes];
+          tagsZoneDOM.forEach((tagDom) => {
+            filteredByTag =  filterRecipesByTag(filteredByTag, tagDom)
+          });
+          console.log(filteredByTag)
+          filteredByTag.forEach((recipe)=> {
+            const newrecipe = new recipesMaker(recipe);
+            newrecipe.render();
 
-        const ingList = generateIng(filteredByTag);
-      displayIng(ingList);
-      const appliList = generateAppli(filteredByTag);
-      displayAppli(appliList);
-      const ustList = generateUst(filteredByTag);
-      displayUst(ustList);
+            const ingList = generateIng(filteredByTag);
+            displayIng(ingList);
+            const appliList = generateAppli(filteredByTag);
+            displayAppli(appliList);
+            const ustList = generateUst(filteredByTag);
+            displayUst(ustList);
       
 
               ///////////////////
-              const elemDOMList = [...document.querySelectorAll(".dropdownElem")];
-              elemDOMList.forEach((elem) => {
-                // console.log(elem)
-                elem.addEventListener("click", createTag)})
+            const elemDOMList = [...document.querySelectorAll(".dropdownElem")];
+            elemDOMList.forEach((elem) => {
+              // console.log(elem)
+              elem.addEventListener("click", createTag)
+              
+            })
               //////////////////
+          })
+        }
+
+        tagCrossDOM.forEach((tag) => {
+          console.log(tag);
+          // tag.removeEventListener("click",() => removTag (tag));
+          tag.addEventListener("click", () => removTag(tag) );
+          tag.addEventListener("click", () => removTag(tag) );
+          // tag.removeEventListener("click",() => removTag(tag) )
+        })
+
+        
       })
-      }
-
-       tagCrossDOM.forEach((e) => {
-        e.removeEventListener("click",() => removTag(e) )
-        e.addEventListener("click",() => removTag(e) )
-       })
-      })})
-
-// const tagsZoneDOM = document.querySelectorAll(".spanObj");
-// console.log(tagsZoneDOM.textContent);
-
-// function filterRecipesByTag(recipeArr, tagObj) {
-//   return recipeArr.filter((recipe) => recipe.ingredients.some((ingObj) => {
-//     return ingObj.ingredient.toLowerCase() === tagObj.textContent.toLowerCase()
-//   }) );
-// }
-
-// let filteredByTag = [...recipes];
-// tagsZoneDOM.forEach((tagDom) => {
-//  filteredByTag =  filterRecipesByTag(filteredByTag, tagDom)
-// });
-// console.log(filteredByTag)
+   })
