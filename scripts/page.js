@@ -5,9 +5,14 @@ import { tagMaker__Obj } from "./class/tagMaker.js";
 
 const recipesLocation = document.querySelector("#recipesZone");
 const errorTextZone = document.querySelector("#errorTextZone") ;
-const inputSearchBar = document.getElementById("searchBar_Input")
+const inputSearchBar = document.getElementById("searchBar_Input");
+const inputSearchIngDropdown = document.getElementById("filter_ingredients");
+const inputSearchAppDropdown = document.getElementById("filter_appliances");
+const inputSearchUstDropdown = document.getElementById("filter_ustensils");
 
-let elemliste = [];
+let ingList = [];
+let appliList = [];
+let ustList = [];
 
 function recipesfirst (){
   recipes.forEach((recipe) => {
@@ -21,7 +26,7 @@ inputSearchBar.addEventListener('keyup', function (e) {
   recipe.ingredients.some((ingObj) => {
     return ingObj.ingredient.toLowerCase().includes(input)
   }) );
-///////////////////////////////// if input < 3 /////////////////////////////////
+
   if (input.length < 3 ) {
     recipesLocation.innerHTML = ``;
     errorTextZone.innerHTML = ``;
@@ -29,12 +34,12 @@ inputSearchBar.addEventListener('keyup', function (e) {
       const newrecipe = new recipesMaker(recipe);
       newrecipe.render();
     })
-        ////////////////////// adaptation of dropdown elem////////////////
-    const ingList = generateIng(recipes);
+
+    ingList = generateIng(recipes);
     displayIng(ingList);
-    const appliList = generateAppli(recipes);
+    appliList = generateAppli(recipes);
     displayAppli(appliList);
-    const ustList = generateUst(recipes);
+    ustList = generateUst(recipes);
     displayUst(ustList);
 
     const elemDOMList = [...document.querySelectorAll(".dropdownElem")];
@@ -65,26 +70,22 @@ inputSearchBar.addEventListener('keyup', function (e) {
           newrecipe.render();
         })
 
-
-        const ingList = generateIng(filteredByTag);
+        ingList = generateIng(filteredByTag);
         displayIng(ingList);
-        const appliList = generateAppli(filteredByTag);
+        appliList = generateAppli(filteredByTag);
         displayAppli(appliList);
-        const ustList = generateUst(filteredByTag);
+        ustList = generateUst(filteredByTag);
         displayUst(ustList);
 
-        ///////////////////
         const elemDOMList = [...document.querySelectorAll(".dropdownElem")];
         elemDOMList.forEach((elem) => {
-          console.log(elem)
           elem.addEventListener("click", createTag)
         })
-        //////////////////
 
         const tagCrossDOM = [... document.querySelectorAll(".circularCross")];
-        tagCrossDOM.forEach((e) => {
-          e.addEventListener("click", function(){
-            e.parentElement.remove();
+
+          function removTag(tag){
+            tag.parentElement.remove();
             recipesLocation.innerHTML = ``;
             const tagsZoneDOM = document.querySelectorAll(".spanObj");
             function filterRecipesByTag(recipeArr, tagObj) {
@@ -102,26 +103,28 @@ inputSearchBar.addEventListener('keyup', function (e) {
               const newrecipe = new recipesMaker(recipe);
               newrecipe.render();
 
-              const ingList = generateIng(filteredByTag);
+              ingList = generateIng(filteredByTag);
               displayIng(ingList);
-              const appliList = generateAppli(filteredByTag);
+              appliList = generateAppli(filteredByTag);
               displayAppli(appliList);
-              const ustList = generateUst(filteredByTag);
+              ustList = generateUst(filteredByTag);
               displayUst(ustList);
         
-                ///////////////////
               const elemDOMList = [...document.querySelectorAll(".dropdownElem")];
               elemDOMList.forEach((elem) => {
-                // console.log(elem)
                 elem.addEventListener("click", createTag)
               })
-                //////////////////
             })
+          }
+          tagCrossDOM.forEach((tag) => {
+            const text =  tag.parentElement.children[0].textContent;
+            if (text === elemName) {
+              tag.addEventListener("click", () => removTag(tag));
+            }
           })
-        })
-      })})
-
-  } ///////////////////////////////////// if nothing match in input ///////////////////
+      })
+    })
+  }
   else if (recipeFilter.length == 0) {
     recipesLocation.innerHTML = ``;
     errorTextZone.innerHTML = ``;
@@ -133,28 +136,25 @@ inputSearchBar.addEventListener('keyup', function (e) {
     chercher « tarte aux pommes », « poisson », etc`
     span.style.padding = "8em";
     span.style.fontSize = "150%"
-
     errorTextZone.appendChild(span);
   }
   else {
-    /////////////////////////// if input > 3 /////////////////////////////////
     recipesLocation.innerHTML = ``;
     errorTextZone.innerHTML = ``;
-    // console.log(recipeFilter);
     recipeFilter.forEach((recipe) => {
       const newrecipe = new recipesMaker(recipe);
       newrecipe.render();
     })
-        ////////////////////// adaptation of dropdown elem////////////////
-    const ingList = generateIng(recipeFilter);
+
+    ingList = generateIng(recipeFilter);
     displayIng(ingList);
-    const appliList = generateAppli(recipeFilter);
+    appliList = generateAppli(recipeFilter);
     displayAppli(appliList);
-    const ustList = generateUst(recipeFilter);
+    ustList = generateUst(recipeFilter);
     displayUst(ustList);
 
-    const elemDOMList = [...document.querySelectorAll(".dropdownElem")];
-    elemDOMList.forEach((elem) => {
+    const elemDOMList = document.querySelectorAll(".dropdownElem");
+    elemDOMList.forEach(function tagCreat(elem) {
       elem.addEventListener("click", function createTag(e){
         recipesLocation.innerHTML = ``;
         errorTextZone.innerHTML = ``;
@@ -163,7 +163,6 @@ inputSearchBar.addEventListener('keyup', function (e) {
         tagMaker__Obj(elemName,elemId);
         console.log(elemId);
         console.log(elemName);
-  
         const tagsZoneDOM = document.querySelectorAll(".spanObj");
         function filterRecipesByTag(recipeArr, tagObj) {
           return recipeArr.filter((recipe) => recipe.appliance.toLowerCase() === tagObj.textContent.toLowerCase() || recipe.ustensils.some((elem) => { return elem.toLowerCase() === tagObj.textContent.toLowerCase()}) || recipe.ingredients.some((ingObj) => {
@@ -174,37 +173,61 @@ inputSearchBar.addEventListener('keyup', function (e) {
         let filteredByTag = [...recipeFilter];
         tagsZoneDOM.forEach((tagDom) => {
           filteredByTag =  filterRecipesByTag(filteredByTag, tagDom)
-          });
+        });
         console.log(filteredByTag)
         filteredByTag.forEach((recipe)=> {
           const newrecipe = new recipesMaker(recipe);
           newrecipe.render();
         })
        
-        const ingList = generateIng(filteredByTag);
+        ingList = generateIng(filteredByTag);
         displayIng(ingList);
-        const appliList = generateAppli(filteredByTag);
+        appliList = generateAppli(filteredByTag);
         displayAppli(appliList);
-        const ustList = generateUst(filteredByTag);
+        ustList = generateUst(filteredByTag);
         displayUst(ustList);
 
-        ///////////////////
+        inputSearchIngDropdown.addEventListener('keyup' ,function filterIng (){
+          const inputIngDropdown = inputSearchIngDropdown.value.toLowerCase();
+          const inputIngFilter = ingList.filter((elem) => elem.toLowerCase().includes(inputIngDropdown))
+          displayIng(inputIngFilter);
+          const elemDOMList = [...document.querySelectorAll(".dropdownElem")];
+          elemDOMList.forEach((elem) => {
+             elem.addEventListener("click", createTag)
+          })
+        })
+        inputSearchAppDropdown.addEventListener('keyup' ,function filterApp (){
+          const inputAppDropdown = inputSearchAppDropdown.value.toLowerCase();
+          const inputAppFilter = appliList.filter((elem) => elem.toLowerCase().includes(inputAppDropdown))
+          displayAppli(inputAppFilter);
+          const elemDOMList = [...document.querySelectorAll(".dropdownElem")];
+          elemDOMList.forEach((elem) => {
+             elem.addEventListener("click", createTag)
+          })
+        })
+        inputSearchUstDropdown.addEventListener('keyup' ,function filterApp (){
+          const inputUstDropdown = inputSearchUstDropdown.value.toLowerCase();
+          const inputUstFilter = ustList.filter((elem) => elem.toLowerCase().includes(inputUstDropdown))
+          displayUst(inputUstFilter);
+          const elemDOMList = [...document.querySelectorAll(".dropdownElem")];
+          elemDOMList.forEach((elem) => {
+             elem.addEventListener("click", createTag)
+          })
+        })
+
         const elemDOMList = [...document.querySelectorAll(".dropdownElem")];
         elemDOMList.forEach((elem) => {
-          console.log(elem)
           elem.addEventListener("click", createTag)})
-        //////////////////
 
         const tagCrossDOM = [... document.querySelectorAll(".circularCross")];
-        tagCrossDOM.forEach((e) => {
-          e.addEventListener("click", function(){
-            e.parentElement.remove()
+          function removTag(tag){
+            tag.parentElement.remove();
             recipesLocation.innerHTML = ``;
             const tagsZoneDOM = document.querySelectorAll(".spanObj");
             function filterRecipesByTag(recipeArr, tagObj) {
               return recipeArr.filter((recipe) => recipe.appliance.toLowerCase() === tagObj.textContent.toLowerCase() || recipe.ustensils.some((elem) => { return elem.toLowerCase() === tagObj.textContent.toLowerCase()}) || recipe.ingredients.some((ingObj) => {
                 return ingObj.ingredient.toLowerCase() === tagObj.textContent.toLowerCase()
-              }));
+              }) );
             }
 
             let filteredByTag = [...recipeFilter];
@@ -216,24 +239,55 @@ inputSearchBar.addEventListener('keyup', function (e) {
               const newrecipe = new recipesMaker(recipe);
               newrecipe.render();
 
-              const ingList = generateIng(filteredByTag);
+              ingList = generateIng(filteredByTag);
               displayIng(ingList);
-              const appliList = generateAppli(filteredByTag);
+              appliList = generateAppli(filteredByTag);
               displayAppli(appliList);
-              const ustList = generateUst(filteredByTag);
+              ustList = generateUst(filteredByTag);
               displayUst(ustList);
-  
-              ///////////////////
+        
               const elemDOMList = [...document.querySelectorAll(".dropdownElem")];
               elemDOMList.forEach((elem) => {
-                console.log(elem)
                 elem.addEventListener("click", createTag)
               })
-              //////////////////
             })
+          }
+          tagCrossDOM.forEach((tag) => {
+            const text =  tag.parentElement.children[0].textContent;
+            if (text === elemName) {
+              tag.addEventListener("click", () => removTag(tag));
+            }
           })
-        })
-      })})
+      })
+    })
+
+    inputSearchIngDropdown.addEventListener('keyup' ,function filterIng (){
+      const inputIngDropdown = inputSearchIngDropdown.value.toLowerCase();
+      const inputIngFilter = ingList.filter((elem) => elem.toLowerCase().includes(inputIngDropdown))
+      displayIng(inputIngFilter);
+      const elemDOMList = [...document.querySelectorAll(".dropdownElem")];
+      elemDOMList.forEach((elem) => {
+         elem.addEventListener("click", createTag)
+      })
+    })
+    inputSearchAppDropdown.addEventListener('keyup' ,function filterApp (){
+      const inputAppDropdown = inputSearchAppDropdown.value.toLowerCase();
+      const inputAppFilter = appliList.filter((elem) => elem.toLowerCase().includes(inputAppDropdown))
+      displayAppli(inputAppFilter);
+      const elemDOMList = [...document.querySelectorAll(".dropdownElem")];
+      elemDOMList.forEach((elem) => {
+         elem.addEventListener("click", createTag)
+      })
+    })
+    inputSearchUstDropdown.addEventListener('keyup' ,function filterApp (){
+      const inputUstDropdown = inputSearchUstDropdown.value.toLowerCase();
+      const inputUstFilter = ustList.filter((elem) => elem.toLowerCase().includes(inputUstDropdown))
+      displayUst(inputUstFilter);
+      const elemDOMList = [...document.querySelectorAll(".dropdownElem")];
+      elemDOMList.forEach((elem) => {
+         elem.addEventListener("click", createTag)
+      })
+    })
   }
 })
 
@@ -249,108 +303,123 @@ ustensilsInput.addEventListener("click", displayUstDown);
 ustensilsDown.addEventListener("click", displayUstDown);
 ustensilsUp.addEventListener("click", displayUstUp);
 
-        ////////////////////// adaptation of dropdown elem////////////////
-const ingList = generateIng(recipes);
+
+ingList = generateIng(recipes);
 displayIng(ingList);
-const appliList = generateAppli(recipes);
+appliList = generateAppli(recipes);
 displayAppli(appliList);
-const ustList = generateUst(recipes);
+ustList = generateUst(recipes);
 displayUst(ustList);
-
+        
 recipesfirst ();
+      
+function createTag (e){
+  recipesLocation.innerHTML = ``;
+  errorTextZone.innerHTML = ``;
+  const elemName = e.target.textContent.slice(0);
+  const elemId = e.target.id; 
+  tagMaker__Obj(elemName,elemId);
+  console.log(elemId);
+  console.log(elemName);
+  
+  const tagsZoneDOM = document.querySelectorAll(".spanObj");
+  function filterRecipesByTag(recipeArr, tagObj) {
+    return recipeArr.filter((recipe) => recipe.appliance.toLowerCase() === tagObj.textContent.toLowerCase() || recipe.ustensils.some((elem) => { return elem.toLowerCase() === tagObj.textContent.toLowerCase()}) || recipe.ingredients.some((ingObj) => {
+      return ingObj.ingredient.toLowerCase() === tagObj.textContent.toLowerCase()
+    }));
+  }
+  
+  let filteredByTag = [...recipes];
+  tagsZoneDOM.forEach((tagDom) => {
+    filteredByTag =  filterRecipesByTag(filteredByTag, tagDom)
+  });
+  filteredByTag.forEach((recipe)=> {
+    const newrecipe = new recipesMaker(recipe);
+      newrecipe.render();
+    })
+  
+  ingList = generateIng(filteredByTag);
+  displayIng(ingList);
+  appliList = generateAppli(filteredByTag);
+  displayAppli(appliList);
+  ustList = generateUst(filteredByTag);
+  displayUst(ustList);
 
-
+  const elemDOMList = [...document.querySelectorAll(".dropdownElem")];
+  elemDOMList.forEach((elem) => {
+    elem.addEventListener("click", createTag)})
+          
+  const tagCrossDOM = [... document.querySelectorAll(".circularCross")];
+  
+  function removTag(tag){
+    tag.parentElement.remove();
+    recipesLocation.innerHTML = ``;
+    const tagsZoneDOM = document.querySelectorAll(".spanObj");
+    function filterRecipesByTag(recipeArr, tagObj) {
+      return recipeArr.filter((recipe) => recipe.appliance.toLowerCase() === tagObj.textContent.toLowerCase() || recipe.ustensils.some((elem) => { return elem.toLowerCase() === tagObj.textContent.toLowerCase()}) || recipe.ingredients.some((ingObj) => {
+        return ingObj.ingredient.toLowerCase() === tagObj.textContent.toLowerCase()
+      }));
+    }
+  
+    let filteredByTag = [...recipes];
+    tagsZoneDOM.forEach((tagDom) => {
+      filteredByTag =  filterRecipesByTag(filteredByTag, tagDom)
+    });
+    filteredByTag.forEach((recipe)=> {
+      const newrecipe = new recipesMaker(recipe);
+      newrecipe.render();
+  
+      ingList = generateIng(filteredByTag);
+      displayIng(ingList);
+      appliList = generateAppli(filteredByTag);
+      displayAppli(appliList);
+      ustList = generateUst(filteredByTag);
+      displayUst(ustList);
+        
+      const elemDOMList = [...document.querySelectorAll(".dropdownElem")];
+      elemDOMList.forEach((elem) => {
+        elem.addEventListener("click", createTag)
+      })
+    })
+  }
+          
+  tagCrossDOM.forEach((tag) => {
+    const text =  tag.parentElement.children[0].textContent;
+    if (text === elemName) {
+      tag.addEventListener("click", () => removTag(tag));
+    }
+  })
+}
 
 const elemDOMList = [...document.querySelectorAll(".dropdownElem")];
-   elemDOMList.forEach((elem) => {
-      elem.addEventListener("click", function createTag (e){
-        recipesLocation.innerHTML = ``;
-        errorTextZone.innerHTML = ``;
-        const elemName = e.target.textContent.slice(0);
-        const elemId = e.target.id; 
-        tagMaker__Obj(elemName,elemId);
-        console.log(elemId);
-        console.log(elemName);
+elemDOMList.forEach((elem) => {
+  elem.addEventListener("click", createTag)
+})
 
-        const tagsZoneDOM = document.querySelectorAll(".spanObj");
-        function filterRecipesByTag(recipeArr, tagObj) {
-          return recipeArr.filter((recipe) => recipe.appliance.toLowerCase() === tagObj.textContent.toLowerCase() || recipe.ustensils.some((elem) => { return elem.toLowerCase() === tagObj.textContent.toLowerCase()}) || recipe.ingredients.some((ingObj) => {
-            return ingObj.ingredient.toLowerCase() === tagObj.textContent.toLowerCase()
-          }) );
-        }
-
-        let filteredByTag = [...recipes];
-        tagsZoneDOM.forEach((tagDom) => {
-          filteredByTag =  filterRecipesByTag(filteredByTag, tagDom)
-        });
-        console.log(filteredByTag)
-        filteredByTag.forEach((recipe)=> {
-          const newrecipe = new recipesMaker(recipe);
-          newrecipe.render();
-        })
-
-        const ingList = generateIng(filteredByTag);
-        displayIng(ingList);
-        const appliList = generateAppli(filteredByTag);
-        displayAppli(appliList);
-        const ustList = generateUst(filteredByTag);
-        displayUst(ustList);
-
-        ///////////////////
-        const elemDOMList = [...document.querySelectorAll(".dropdownElem")];
-        elemDOMList.forEach((elem) => {
-          elem.addEventListener("click", createTag)})
-        //////////////////
-        
-
-        const tagCrossDOM = [... document.querySelectorAll(".circularCross")];
-
-        function removTag(tag){
-          tag.parentElement.remove();
-          recipesLocation.innerHTML = ``;
-          const tagsZoneDOM = document.querySelectorAll(".spanObj");
-          function filterRecipesByTag(recipeArr, tagObj) {
-            return recipeArr.filter((recipe) => recipe.appliance.toLowerCase() === tagObj.textContent.toLowerCase() || recipe.ustensils.some((elem) => { return elem.toLowerCase() === tagObj.textContent.toLowerCase()}) || recipe.ingredients.some((ingObj) => {
-              return ingObj.ingredient.toLowerCase() === tagObj.textContent.toLowerCase()
-            }));
-          }
-
-          let filteredByTag = [...recipes];
-          tagsZoneDOM.forEach((tagDom) => {
-            filteredByTag =  filterRecipesByTag(filteredByTag, tagDom)
-          });
-          console.log(filteredByTag)
-          filteredByTag.forEach((recipe)=> {
-            const newrecipe = new recipesMaker(recipe);
-            newrecipe.render();
-
-            const ingList = generateIng(filteredByTag);
-            displayIng(ingList);
-            const appliList = generateAppli(filteredByTag);
-            displayAppli(appliList);
-            const ustList = generateUst(filteredByTag);
-            displayUst(ustList);
-      
-
-              ///////////////////
-            const elemDOMList = [...document.querySelectorAll(".dropdownElem")];
-            elemDOMList.forEach((elem) => {
-              // console.log(elem)
-              elem.addEventListener("click", createTag)
-              
-            })
-              //////////////////
-          })
-        }
-
-        tagCrossDOM.forEach((tag) => {
-          console.log(tag);
-          // tag.removeEventListener("click",() => removTag (tag));
-          tag.addEventListener("click", () => removTag(tag) );
-          tag.addEventListener("click", () => removTag(tag) );
-          // tag.removeEventListener("click",() => removTag(tag) )
-        })
-
-        
-      })
-   })
+inputSearchIngDropdown.addEventListener('keyup' ,function filterIng (){
+  const inputIngDropdown = inputSearchIngDropdown.value.toLowerCase();
+  const inputIngFilter = ingList.filter((elem) => elem.toLowerCase().includes(inputIngDropdown))
+  displayIng(inputIngFilter);
+  const elemDOMList = [...document.querySelectorAll(".dropdownElem")];
+  elemDOMList.forEach((elem) => {
+    elem.addEventListener("click", createTag)
+  })
+})
+inputSearchAppDropdown.addEventListener('keyup' ,function filterApp (){
+  const inputAppDropdown = inputSearchAppDropdown.value.toLowerCase();
+  const inputAppFilter = appliList.filter((elem) => elem.toLowerCase().includes(inputAppDropdown))
+  displayAppli(inputAppFilter);
+  const elemDOMList = [...document.querySelectorAll(".dropdownElem")];
+  elemDOMList.forEach((elem) => {
+    elem.addEventListener("click", createTag)
+  })
+})
+inputSearchUstDropdown.addEventListener('keyup' ,function filterApp (){
+  const inputUstDropdown = inputSearchUstDropdown.value.toLowerCase();
+  const inputUstFilter = ustList.filter((elem) => elem.toLowerCase().includes(inputUstDropdown))
+  displayUst(inputUstFilter);
+  const elemDOMList = [...document.querySelectorAll(".dropdownElem")];
+  elemDOMList.forEach((elem) => {
+    elem.addEventListener("click", createTag)
+  })
+})

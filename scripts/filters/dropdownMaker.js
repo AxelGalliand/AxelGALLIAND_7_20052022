@@ -3,27 +3,6 @@ export const appliancesList = document.getElementById("appliancesList");
 export const ustensilsList = document.getElementById("ustensilsList");
 
 
-// export function generateIng(recipeArray) {
-//   const ingInput = document.getElementById("filter_ingredients");
-//   ingInput.addEventListener('keyup', function generateInginput(e) {
-//     const input = e.target.value.toLowerCase();
-
-//     if (input.length < 3) {
-//       let ingList = [];
-
-//       recipeArray.forEach((recipe) => {
-//         recipe.ingredients.forEach((elem) => {
-//          let ingredientOfingredients = elem.ingredient;
-//          ingList.push(ingredientOfingredients);
-//         })
-//       })
-//       return [... new Set(ingList)].sort()
-//     } else {
-//       console.log ("teste")
-//     }
-//   })
-// }
-
 export function generateIng(recipeArray) {
   let ingList = [];
 
