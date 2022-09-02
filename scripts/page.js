@@ -46,10 +46,11 @@ inputSearchBar.addEventListener('keyup', function (e) {
     elemDOMList.forEach((elem) => {
       elem.addEventListener("click", function createTag (e){
         const elemName = e.target.textContent.slice(0);
-        const elemId = e.target.id; 
-        tagMaker__Obj(elemName,elemId);
-        console.log(elemId);
+        const elemClass = e.target.className; 
+        tagMaker__Obj(elemName,elemClass);
+        console.log(elemClass);
         console.log(elemName);
+
         recipesLocation.innerHTML = ``;
         errorTextZone.innerHTML = ``;
 
@@ -159,9 +160,9 @@ inputSearchBar.addEventListener('keyup', function (e) {
         recipesLocation.innerHTML = ``;
         errorTextZone.innerHTML = ``;
         const elemName = e.target.textContent.slice(0);
-        const elemId = e.target.id; 
-        tagMaker__Obj(elemName,elemId);
-        console.log(elemId);
+        const elemClass = e.target.className; 
+        tagMaker__Obj(elemName,elemClass);
+        console.log(elemClass);
         console.log(elemName);
         const tagsZoneDOM = document.querySelectorAll(".spanObj");
         function filterRecipesByTag(recipeArr, tagObj) {
@@ -317,9 +318,9 @@ function createTag (e){
   recipesLocation.innerHTML = ``;
   errorTextZone.innerHTML = ``;
   const elemName = e.target.textContent.slice(0);
-  const elemId = e.target.id; 
-  tagMaker__Obj(elemName,elemId);
-  console.log(elemId);
+  const elemClass = e.target.className; 
+  tagMaker__Obj(elemName,elemClass);
+  console.log(elemClass);
   console.log(elemName);
   
   const tagsZoneDOM = document.querySelectorAll(".spanObj");

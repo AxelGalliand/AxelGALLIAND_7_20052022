@@ -96,15 +96,15 @@ p {
   margin-right: 10px;
 }
 
-#ingredientElem {
+.ingredientElem {
   background-color: #3282F7;
 }
 
-#applianceElem {
+.applianceElem {
   background-color: #68D9A4;
 }
 
-#ustensilElem {
+.ustensilElem {
   background-color: #ED6454;
 }
 
@@ -155,7 +155,6 @@ p {
   background-color: transparent;
   color: #ffffff;
   font-size: 1rem;
-  font-weight: 0;
   padding: 0;
   width: 100%;
   height: 100%;

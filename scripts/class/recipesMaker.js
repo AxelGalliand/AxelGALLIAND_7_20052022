@@ -29,7 +29,7 @@ export class recipesMaker {
     const recipes__content = document.createElement("article");
     recipes__content.className = "recipes__content--article";
     recipes__content.innerHTML = `
-      <img src="assets/img.png">
+      <img src="assets/img.png" alt="photode la recette">
       <div class="recipeHeader">
         <h2>${this.name}</h2>
         <div class="recipeTimer">

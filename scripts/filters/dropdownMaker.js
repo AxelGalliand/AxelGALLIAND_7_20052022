@@ -17,7 +17,7 @@ export function generateIng(recipeArray) {
 export function displayIng(ingArr) {
   let ingString = "";
   ingArr.forEach((elem) => {
-     ingString += "<li class='dropdownElem' id='ingredientElem'>" + elem + "</li>"
+     ingString += "<li class='dropdownElem ingredientElem'>" + elem + "</li>"
   })
     ingredientsList.innerHTML = `${ingString}`
 }
@@ -34,7 +34,7 @@ export function displayIng(ingArr) {
 export function displayAppli(appliArr) {
   let appliString ="";
   appliArr.forEach ((elem) => {
-    appliString += "<li class='dropdownElem' id='applianceElem'>" + elem + "</li>"
+    appliString += "<li class='dropdownElem applianceElem'>" + elem + "</li>"
  })
  appliancesList.innerHTML = `${appliString}`
 }
@@ -52,7 +52,7 @@ export function generateUst(recipeArray) {
 export function displayUst(ustArr) {
   let ustString ="";
   ustArr.forEach ((elem) => {
-  ustString += "<li class='dropdownElem' id='ustensilElem'>" + elem + "</li>"
+  ustString += "<li class='dropdownElem ustensilElem'>" + elem + "</li>"
 })
   ustensilsList.innerHTML = `${ustString}`
 }

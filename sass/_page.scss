@@ -70,15 +70,15 @@ p {
 
 }
 
-#ingredientElem {
+.ingredientElem {
   background-color: $blue;
 }
 
-#applianceElem {
+.applianceElem {
   background-color: $green;
 }
 
-#ustensilElem {
+.ustensilElem {
   background-color: $orange;
 }
 
@@ -130,7 +130,6 @@ p {
   background-color: transparent;
   color: $white;
   font-size: 1rem;
-  font-weight: 00;
   padding: 0;
   width: 100%;
   height: 100%;
