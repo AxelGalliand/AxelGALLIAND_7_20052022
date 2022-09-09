@@ -13,5 +13,4 @@ export function tagMaker__Obj(name,classElem) {
     li.appendChild(span)
     li.appendChild(img)
     tagLocation.appendChild(li)
-    console.log
   }
