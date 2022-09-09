@@ -22,10 +22,15 @@ function recipesfirst (){
 
 inputSearchBar.addEventListener('keyup', function (e) {
   const input = e.target.value.toLowerCase();
-  const recipeFilter = recipes.filter((recipe) => recipe.name.toLowerCase().includes(input) || recipe.description.toLowerCase().includes(input) ||
-  recipe.ingredients.some((ingObj) => {
-    return ingObj.ingredient.toLowerCase().includes(input)
-  }) );
+
+  let recipeFilter = [];
+
+  for(let i = 0; i < recipes.length; i++ ) {
+    if (recipes[i].name.toLowerCase().includes(input) ||
+     recipes[i].description.toLowerCase().includes(input) ||
+    recipes[i].ingredients.some((ingObj) => ingObj.ingredient.toLowerCase().includes(input))) recipeFilter.push(recipes[i]);
+  }
+  
 
   if (input.length < 3 ) {
     recipesLocation.innerHTML = ``;
